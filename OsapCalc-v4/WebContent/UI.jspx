@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:f="http://java.sun.com/jsp/jstl/fmt" version="2.0">
+	<jsp:directive.page contentType="text/html; charset=UTF-8"
+		pageEncoding="UTF-8" session="true" />
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+		omit-xml-declaration="true" />
+	<html xmlns="http://www.w3.org/1999/xhtml">
+	
+<head>
+<title>OSAP</title>
+<link rel="StyleSheet" href="${pageContext.request.contextPath}/res/mc.css" type="text/css" title="cse4413" media="screen, print" />
+<script type="text/javascript" src="${pageContext.request.contextPath}/res/mc.js">;</script>
+</head>
+<body>
+<header>
+	Student Loan Application
+	</header>
+	<nav>
+		<ul>
+			<li><a href="#">Home</a></li>
+			<li><a href="#">About</a></li>
+		
+		
+		</ul>
+	
+	</nav>
+	
+	
+	
+	<fieldset>
+	<legend> ${legendname}</legend>
+	<form action="Osap" method="POST" class="osapForm" onsubmit="return validate();">
+	
+			<h2 id="error">  ${error}</h2>
+
+	
+		<label for="principal"> Principal <span id="principal-error">*</span><BR /> <small>(total loan amount after studies)</small></label>
+		<input type="number" step="0.01" id="principal" name="principal" value="${principal}" required="required"></input> <BR />
+		<label for="interest">Annual Interest Rate <span id="interest-error">*</span></label>
+		<input type="number" step="1" id="interest" name="interest" value="${interest}" required="required"></input> <BR />
+		<label for="period"> Payment Period <span id="period-error">*</span> <small>(total number of months)</small></label>
+		<input type="number" step="1" id="period" name="period" value="${period}" required="required"></input> <BR />
+		<label for="grace"> Grace Period <BR /> <small>(Take advantage of 6 month grace period interest with your loan balance)</small></label>
+		
+	<c:choose>
+		<c:when test="${ graceperiod eq 'on'}">
+			 <input type="checkbox"  id="grace" name="grace" checked= "checked" ></input> <BR />
+		</c:when>
+		<!--  do not know the error
+		<c:otherwise>
+			 <input type="checkbox"  id="grace" name="grace"  ></input> <BR />
+		</c:otherwise>-->
+	</c:choose>
+		 
+      
+		<button action="submit" name="calculate" value="true">Submit</button>
+		
+	<button name="ajax"  value="true" onclick=";doSimpleAjax('/OsapCalc-v4/Osap/Ajax');return false;"> Submit (Ajax)</button>
+
+	</form>
+	<div id="res">
+	<div id="response"></div>
+	</div>
+	</fieldset>
+	<footer><img id="image" src="${pageContext.request.contextPath}/logo.png" alt="Lassonde logo" width="100" height="100"/></footer>
+	
+
+</body>
+	</html>
+</jsp:root>
